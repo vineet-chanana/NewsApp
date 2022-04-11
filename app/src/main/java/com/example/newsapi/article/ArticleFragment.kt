@@ -1,5 +1,6 @@
-package com.example.newsapi
+package com.example.newsapi.article
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
-import androidx.core.view.isGone
+import com.example.newsapi.R
 
 
 class ArticleFragment : Fragment() {
@@ -21,10 +22,17 @@ class ArticleFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_article, container, false)
 
+        setArticleWebView(view)
+
+        return view
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setArticleWebView(view: View) {
         val articleUrl = arguments?.getString("articleUrl")
 
-        var articleWebView : WebView = view.findViewById(R.id.articleWebView)
-        var articleProgressBar: ProgressBar = view.findViewById(R.id.articleProgressBar)
+        val articleWebView : WebView = view.findViewById(R.id.articleWebView)
+        val articleProgressBar: ProgressBar = view.findViewById(R.id.articleProgressBar)
         if(articleUrl != null){
             //if page has javascript allow it to enable
             articleWebView.settings.javaScriptEnabled = true
@@ -41,7 +49,6 @@ class ArticleFragment : Fragment() {
             }
             articleWebView.loadUrl(articleUrl)
         }
-        return view
     }
 
 

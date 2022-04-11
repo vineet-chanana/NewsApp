@@ -1,13 +1,14 @@
-package com.example.newsapi
+package com.example.newsapi.source
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapi.R
+import com.example.newsapi.Source
 
-class MyAdapter(private val listener: onSourceClickListener) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class SourceAdapter(private val listener: onSourceClickListener) : RecyclerView.Adapter<SourceAdapter.MyViewHolder>() {
 
     lateinit var sourcesList: List<Source>
     fun setData(data: List<Source>){

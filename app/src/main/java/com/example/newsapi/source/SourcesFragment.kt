@@ -1,21 +1,19 @@
-package com.example.newsapi
+package com.example.newsapi.source
 
 import android.os.Bundle
-import android.os.RecoverySystem
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapi.R
 
-class SourcesFragment : Fragment(),MyAdapter.onSourceClickListener {
+class SourcesFragment : Fragment(), SourceAdapter.onSourceClickListener {
 
     private lateinit var viewModel: SourcesFragmentViewModel
-    private lateinit var communicator: Communicator
+    private lateinit var communicator: ArticleListCommunicator
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,10 +23,10 @@ class SourcesFragment : Fragment(),MyAdapter.onSourceClickListener {
 
         viewModel = ViewModelProvider(this).get(SourcesFragmentViewModel::class.java)
 
+
         val sourcesListRecyclerView: RecyclerView = view.findViewById(R.id.sourcesListRecyclerView)
         sourcesListRecyclerView.layoutManager = LinearLayoutManager(activity)
-        val adapter = MyAdapter(this)
-
+        val adapter = SourceAdapter(this)
 
 
         viewModel.sourcesList.observe(viewLifecycleOwner) { newSourcesList ->
@@ -36,10 +34,11 @@ class SourcesFragment : Fragment(),MyAdapter.onSourceClickListener {
             sourcesListRecyclerView.adapter = adapter
         }
 
-        communicator = activity as Communicator
+        communicator = activity as ArticleListCommunicator
 
         return view
     }
+
 
     override fun onSourceClick(position: Int) {
         //tell the activity to open article List Fragment
@@ -48,5 +47,3 @@ class SourcesFragment : Fragment(),MyAdapter.onSourceClickListener {
 
 
 }
-
-//ek hi viewmodel use krege to data preserve rhega and we dont want that bcoz next time agar hum kisi or pe click krege to phle prev wala article dikhega

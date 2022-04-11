@@ -1,6 +1,6 @@
 package com.example.newsapi
 
-import com.example.newsapi.article.Article
+import com.example.newsapi.articleList.Article
 
 data class ArticlesList(
     val articles: List<Article>,

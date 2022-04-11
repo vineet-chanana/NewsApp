@@ -1,4 +1,4 @@
-package com.example.newsapi.article
+package com.example.newsapi.articleList
 
 import com.example.newsapi.SourceX
 

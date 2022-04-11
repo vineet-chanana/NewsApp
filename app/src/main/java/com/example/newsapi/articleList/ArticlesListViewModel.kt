@@ -1,10 +1,11 @@
-package com.example.newsapi
+package com.example.newsapi.articleList
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.newsapi.article.Article
+import com.example.newsapi.ArticlesList
+import com.example.newsapi.NewsAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,10 +21,7 @@ class ArticlesListViewModel : ViewModel() {
         val articlesList: Call<ArticlesList> = NewsAPI.retrofit.getArticlesList(source)
         articlesList.enqueue(object :Callback<ArticlesList>{
             override fun onResponse(call: Call<ArticlesList>, response: Response<ArticlesList>) {
-                val responseBody = response.body()
-                if(responseBody != null){
-                    _artcilesList.value = responseBody.articles
-                }
+                getArticleListValue(response)
             }
 
             override fun onFailure(call: Call<ArticlesList>, t: Throwable) {
@@ -32,6 +30,13 @@ class ArticlesListViewModel : ViewModel() {
 
         })
 
+    }
+
+    private fun getArticleListValue(response: Response<ArticlesList>) {
+        val responseBody = response.body()
+        if(responseBody != null){
+            _artcilesList.value = responseBody.articles
+        }
     }
 
 }

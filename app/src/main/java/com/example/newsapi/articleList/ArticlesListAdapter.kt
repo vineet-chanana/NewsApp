@@ -1,4 +1,4 @@
-package com.example.newsapi
+package com.example.newsapi.articleList
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.newsapi.article.Article
+import com.example.newsapi.R
 import java.util.*
 
 class ArticlesListAdapter(private val listener: onArticleClickListener) : RecyclerView.Adapter<ArticlesListAdapter.ArticleViewHolder>(),Filterable{
@@ -35,25 +35,23 @@ class ArticlesListAdapter(private val listener: onArticleClickListener) : Recycl
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        //holder.articleImage = articlesList[position].urlToImage
         holder.articleTitle.text = articlesList[position].title
         holder.articleDescription.text = articlesList[position].description
         holder.articleAuthor.text = articlesList[position].author
-        val temp = articlesList[position].publishedAt
 
-        val radius = 30 // corner radius, higher value = more rounded
+        setImage(holder,position)
 
-        val margin = 10
+    }
+
+    private fun setImage(holder: ArticleViewHolder, position: Int) {
         val media = articlesList[position].urlToImage
         if (!media.isNullOrEmpty()) {
-
             Glide.with(holder.itemView.context)
                 .load(media)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .error(R.drawable.not_found_image_3)
                 .fallback(ColorDrawable(Color.GRAY))
                 .into(holder.articleImage)
-
         } else {
             holder.articleImage.setImageResource(R.drawable.ic_launcher_background)
         }

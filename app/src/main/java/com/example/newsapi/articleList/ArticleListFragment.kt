@@ -1,21 +1,20 @@
-package com.example.newsapi
+package com.example.newsapi.articleList
 
 import android.os.Bundle
 import android.view.*
 //import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapi.R
 
 
-class ArticleListFragment : Fragment(), ArticlesListAdapter.onArticleClickListener{
+class ArticleListFragment : Fragment(), ArticlesListAdapter.onArticleClickListener {
 
     private lateinit var viewModel: ArticlesListViewModel
-    private lateinit var communicator:Communicator2
+    private lateinit var communicator: ArticleWebViewCommunicator
     private lateinit var adapter: ArticlesListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,17 +23,15 @@ class ArticleListFragment : Fragment(), ArticlesListAdapter.onArticleClickListen
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_article_list, container, false)
 
-
         viewModel = ViewModelProvider(this).get(ArticlesListViewModel::class.java)
-
-        val newsSource: String? = arguments?.getString("source")
-
 
         val articlesListRecyclerView:RecyclerView = view.findViewById(R.id.articlesListRecyclerView)
         articlesListRecyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = ArticlesListAdapter(this)
 
-        passSourceName(newsSource)
+
+        val newsSource: String? = arguments?.getString("source")
+        passSourceName(newsSource) //pass source name to get source's article list
 
         viewModel.articlesList.observe(viewLifecycleOwner) { newArticlesList ->
             adapter.setData(newArticlesList)
@@ -42,7 +39,7 @@ class ArticleListFragment : Fragment(), ArticlesListAdapter.onArticleClickListen
         }
 
 
-        communicator = activity as Communicator2
+        communicator = activity as ArticleWebViewCommunicator
 
         setHasOptionsMenu(true);
         return view
@@ -63,10 +60,9 @@ class ArticleListFragment : Fragment(), ArticlesListAdapter.onArticleClickListen
         communicator.openArticleWebView(viewModel.articlesList.value?.get(position)?.url.toString())
     }
 
+    //setting up search feature
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
-
-        //menuInflater.inflate(R.menu.menu_main, menu)
 
         val item = menu?.findItem(R.id.article_search);
         val searchView = item?.actionView as SearchView

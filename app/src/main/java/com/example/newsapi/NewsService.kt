@@ -9,13 +9,11 @@ import retrofit2.http.Query
 
 //https://newsapi.org/v2/top-headlines/sources?apiKey=23a286bb6bfc480bbbcd944581831d2e
 //https://newsapi.org/v2/everything?sources=techcrunch&apiKey=23a286bb6bfc480bbbcd944581831d2e
-const val BASE_URL = "https://newsapi.org/v2/"
 
+const val BASE_URL = "https://newsapi.org/v2/"
 const val API_KEY = "23a286bb6bfc480bbbcd944581831d2e"
 
-
 interface NewsService {
-
 
     @GET("top-headlines/sources?apiKey=$API_KEY&language=en")
     fun getNewsSources() : Call<NewsSource>
