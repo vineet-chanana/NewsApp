@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_marginTop="10dp"
+    android:paddingEnd="4dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/articleImage"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:scaleType="fitXY"
+        android:paddingStart="8dp"
+        android:src="@drawable/chair"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"/>
+
+    <TextView
+        android:id="@+id/articleTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingStart="10dp"
+        android:paddingEnd="4dp"
+        android:text="Coinbase comes india"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintTop_toTopOf="@+id/articleImage" />
+
+    <TextView
+        android:id="@+id/articleDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        android:paddingStart="10dp"
+        android:paddingEnd="4dp"
+        android:text="Crypto giant Coinbase has suspended support for UPI payments instrument on its app in India, making its eponymous exchange non-functional again for any purchase orders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
+
+    <TextView
+        android:id="@+id/articleAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="10dp"
+        android:text="Vineet Chanana"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintTop_toBottomOf="@+id/articleDescription" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
